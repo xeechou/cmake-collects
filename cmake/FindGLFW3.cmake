@@ -11,7 +11,7 @@
 # installation.
 #
 # default search dirs
-# 
+#
 # Cmake file from: https://github.com/daw42/glslcookbook
 
 set( _glfw3_HEADER_SEARCH_DIRS
@@ -38,26 +38,28 @@ if( GLFW3_ROOT )
 endif()
 
 # Search for the header
-FIND_PATH(GLFW3_INCLUDE_DIR "GLFW/glfw3.h"
-PATHS ${_glfw3_HEADER_SEARCH_DIRS} )
+find_path(GLFW3_INCLUDE_DIR "GLFW/glfw3.h"
+  PATHS ${_glfw3_HEADER_SEARCH_DIRS} )
 
 # Search for the library
-FIND_LIBRARY(GLFW3_LIBRARY NAMES glfw3 glfw
+find_library(GLFW3_LIBRARY NAMES glfw3 glfw
   PATHS ${_glfw3_LIB_SEARCH_DIRS} )
-INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(GLFW3 DEFAULT_MSG
-GLFW3_LIBRARY GLFW3_INCLUDE_DIR)
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(GLFW3 DEFAULT_MSG
+  GLFW3_LIBRARY GLFW3_INCLUDE_DIR)
 
-GET_FILENAME_COMPONENT(GLFW3_LINK_DIRECTORY ${GLFW3_LIBRARY} DIRECTORY)
+get_filename_component(GLFW3_LINK_DIRECTORY ${GLFW3_LIBRARY} DIRECTORY)
+mark_as_advanced(GLFW3_LIBRARY GLFW3_LINK_DIRECTORY GLFW3_INCLUDE_DIR)
 
 #mordenlized target
-if (GLFW3_FOUND AND NOT TARGET GLFW3::GLFW3)
-  add_library(GLFW3::GLFW3 UNKNOWN IMPORTED)
-  set_target_properties(GLFW3::GLFW3 PROPERTIES
+if (GLFW3_FOUND AND NOT TARGET glfw)
+  add_library(glfw UNKNOWN IMPORTED)
+  set_target_properties(glfw PROPERTIES
     IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
     IMPORTED_LOCATION "${GLFW3_LIBRARY}"
     INTERFACE_LINK_DIRECTORIES "${GLFW3_LINK_DIRECTORY}"
     INTERFACE_LINK_LIBRARIES "${GLFW3_LIBRARY}"
     INTERFACE_INCLUDE_DIRECTORIES "${GLFW3_INCLUDE_DIR}"
     )
+  add_library(glfw::glfw ALIAS glfw)
 endif()
