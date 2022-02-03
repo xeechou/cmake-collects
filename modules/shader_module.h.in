@@ -1,0 +1,14 @@
+#ifndef @NAME@_SHADER_MODULE_H
+#define @NAME@_SHADER_MODULE_H
+
+#include <stdint.h>
+
+/* a single header refers to a single shader module, vertex, fragment, etc.
+ *
+ * In the hexadecimal form, embedded in the c code so it comes directly with
+ * program
+ */
+extern const uint8_t @NAME@_shader_code[];
+extern const uint32_t @NAME@_shader_len;
+
+#endif /* EOF */

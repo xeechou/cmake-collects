@@ -1,0 +1,10 @@
+#include <stdint.h>
+#include "@NAME@_shader_module.h"
+
+
+uint8_t @NAME@_shader_code[] =
+{
+@HEXCODE@
+};
+
+uint32_t @NAME@_shader_len = sizeof(@NAME@_shader_code);
